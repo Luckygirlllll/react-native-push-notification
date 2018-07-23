@@ -37,21 +37,21 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
         }
         JSONObject data = getPushData(bundle.getString("data"));
         // Copy `twi_body` to `message` to support Twilio
-        if (bundle.containsKey("twi_body")) {
+        if (bundle.containsKey("twi_body") || bundle.get("twi_body") == null) {
             bundle.putString("message", bundle.getString("twi_body"));
         }
 
         if (data != null) {
-            if (!bundle.containsKey("message")) {
+            if (!bundle.containsKey("message") || bundle.get("message") == null) {
                 bundle.putString("message", data.optString("alert", null));
             }
-            if (!bundle.containsKey("title")) {
+            if (!bundle.containsKey("title") || bundle.get("title") == null) {
                 bundle.putString("title", data.optString("title", null));
             }
-            if (!bundle.containsKey("sound")) {
+            if (!bundle.containsKey("sound") || bundle.get("sound") == null) {
                 bundle.putString("soundName", data.optString("sound", null));
             }
-            if (!bundle.containsKey("color")) {
+            if (!bundle.containsKey("color") || bundle.get("color") == null) {
                 bundle.putString("color", data.optString("color", null));
             }
 
